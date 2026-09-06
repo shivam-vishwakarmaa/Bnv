@@ -98,6 +98,8 @@ npm run seed
 *   **Authentication:** There is no full user authentication system implemented; reviews are tracked and rate-limited strictly by email address in the schema.
 *   **Image Uploads:** Product and review images rely on external URLs (Unsplash) rather than a dedicated cloud storage solution (like AWS S3 or Cloudinary).
 *   **Transactions:** The product rating recalculation uses a Mongoose post-save hook instead of full MongoDB replica-set transactions. While sufficient for a demo and most standard traffic, high-concurrency environments might prefer full ACID transactions.
+*   **E-commerce Functionality:** There is no working "Add to Cart" or checkout logic; this demo strictly focuses on the Product Catalog and the Ratings & Reviews module.
+*   **Production Deployment:** Currently setup for local development. A production deployment would require compiling the React frontend and securely exposing the backend API (e.g. configuring CORS origins, reverse proxy, PM2).
 
 ## Possible Future Improvements
 *   Implement JWT-based user authentication and user profiles.
