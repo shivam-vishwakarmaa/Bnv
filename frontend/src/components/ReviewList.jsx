@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle, useCallback } from 'react';
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
 import { ThumbsUp, CheckCircle2 } from 'lucide-react';
@@ -13,7 +13,7 @@ const ReviewList = forwardRef(({ productSlug }, ref) => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     setLoading(true);
     try {
       const res = await axios.get(`${API_URL}/products/${productSlug}/reviews?sort=${sort}&page=${page}&limit=5`);
@@ -24,12 +24,11 @@ const ReviewList = forwardRef(({ productSlug }, ref) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [productSlug, sort, page]);
 
-  // Re-fetch on sort, page, or product change
   useEffect(() => {
     fetchReviews();
-  }, [productSlug, sort, page]);
+  }, [fetchReviews]);
 
   useImperativeHandle(ref, () => ({
     fetchReviews
@@ -41,7 +40,7 @@ const ReviewList = forwardRef(({ productSlug }, ref) => {
       // Optimistic update
       setReviews(reviews.map(r => r._id === id ? { ...r, helpfulVotes: r.helpfulVotes + 1 } : r));
     } catch (err) {
-      console.error("Could not record vote");
+      console.error("Could not record vote", err);
     }
   };
 

@@ -35,6 +35,7 @@ const HomePage = () => {
         setProducts(res.data.data.products);
         setError(null);
       } catch (err) {
+        console.error("Failed to fetch products:", err);
         setError('Failed to fetch products');
       } finally {
         setLoading(false);
