@@ -86,13 +86,18 @@ npm run seed
 ## Screenshots
 *Paste your image links below:*
 
-- **Product Catalog / Grid:** `[Placeholder: Add screenshot here]`
-- **Product Details & Rating Breakdown:** `[Placeholder: Add screenshot here]`
-- **Review Submission Modal / Form:** `[Placeholder: Add screenshot here]`
-- **Mobile Viewport (375px):** `[Placeholder: Add screenshot here]`
+- **Product Catalog / Grid:** 
+![Product Grid](screenshots/grid.jpg)
+- **Product Details & Rating Breakdown:** 
+![Product Detail](screenshots/detail.jpg)
+- **Review Submission Modal / Form:** 
+![Review Form Validation Error](screenshots/error.jpg)
+- **Mobile Viewport (375px):** 
+![Mobile View](screenshots/mobile.jpg)
 
 ## Deployed URL
-**Live Demo:** `[Placeholder: Add your deployment URL here]`
+**Live Demo (Backend/Render):** `[Pending Manual Deployment]`
+**Live Demo (Frontend/Netlify):** `[Pending Manual Deployment]`
 
 ## Known Limitations
 *   **Authentication:** There is no full user authentication system implemented; reviews are tracked and rate-limited strictly by email address in the schema.
