@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { ArrowLeft } from 'lucide-react';
@@ -15,8 +15,7 @@ const ProductPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // Store the refetch function from ReviewList
-  const [refreshReviews, setRefreshReviews] = useState(null);
+  const reviewListRef = useRef(null);
 
   const fetchProduct = useCallback(async () => {
     try {
@@ -24,6 +23,7 @@ const ProductPage = () => {
       setProduct(res.data.data);
       setError(null);
     } catch (err) {
+      console.error("Failed to fetch product", err);
       setError('Product not found or an error occurred.');
     } finally {
       setLoading(false);
@@ -37,9 +37,9 @@ const ProductPage = () => {
   const handleReviewAdded = () => {
     // Refetch product to update average rating and histogram
     fetchProduct();
-    // Also tell ReviewList to refresh
-    if (refreshReviews) {
-      refreshReviews();
+    // Also tell ReviewList to refresh via ref
+    if (reviewListRef.current) {
+      reviewListRef.current.fetchReviews();
     }
   };
 
@@ -144,7 +144,7 @@ const ProductPage = () => {
           <div className="lg:col-span-8">
             <ReviewList 
               productSlug={product.slug} 
-              onReviewAdded={(refetchFn) => setRefreshReviews(() => refetchFn)} 
+              ref={reviewListRef} 
             />
           </div>
         </div>

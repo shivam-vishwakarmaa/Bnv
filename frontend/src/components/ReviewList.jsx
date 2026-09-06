@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import axios from 'axios';
 import { formatDistanceToNow } from 'date-fns';
 import { ThumbsUp, CheckCircle2 } from 'lucide-react';
@@ -6,7 +6,7 @@ import RatingStars from './RatingStars';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const ReviewList = ({ productSlug, onReviewAdded }) => {
+const ReviewList = forwardRef(({ productSlug }, ref) => {
   const [reviews, setReviews] = useState([]);
   const [sort, setSort] = useState('newest');
   const [page, setPage] = useState(1);
@@ -31,12 +31,9 @@ const ReviewList = ({ productSlug, onReviewAdded }) => {
     fetchReviews();
   }, [productSlug, sort, page]);
 
-  // Expose fetchReviews to parent so it can trigger a refresh when a new review is added
-  useEffect(() => {
-    if (onReviewAdded) {
-      onReviewAdded(fetchReviews);
-    }
-  }, [onReviewAdded]);
+  useImperativeHandle(ref, () => ({
+    fetchReviews
+  }));
 
   const handleHelpful = async (id) => {
     try {
@@ -150,6 +147,6 @@ const ReviewList = ({ productSlug, onReviewAdded }) => {
       )}
     </div>
   );
-};
+});
 
 export default ReviewList;
