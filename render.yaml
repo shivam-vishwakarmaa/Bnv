@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: bnv-reviews-api
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: PORT
+        value: 5000

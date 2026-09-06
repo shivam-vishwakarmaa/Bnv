@@ -10,7 +10,20 @@ const app = express();
 
 connectDB();
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
