@@ -96,8 +96,8 @@ npm run seed
 ![Mobile View](screenshots/mobile.jpg)
 
 ## Deployed URL
-**Live Demo (Backend/Render):** `[Pending Manual Deployment]`
-**Live Demo (Frontend/Netlify):** `[Pending Manual Deployment]`
+**Live Demo (Frontend):** https://frontend-lovat-iota-46.vercel.app
+**Backend API:** https://backend-beige-eight-24.vercel.app
 
 ## Known Limitations
 *   **Authentication:** There is no full user authentication system implemented; reviews are tracked and rate-limited strictly by email address in the schema.
